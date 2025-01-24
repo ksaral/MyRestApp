@@ -19,10 +19,10 @@ public class HomeController {
     private static final String WELCOME_MESSAGE = "Welcome to the home page!!";
 
     @GetMapping(produces = "application/json")
-    public @ResponseBody ResponseEntity<WelcomeBean> getMethodName() {
+    public @ResponseBody ResponseEntity<WelcomeBean> showHomePage() {
         Link link = WebMvcLinkBuilder
                 .linkTo(WebMvcLinkBuilder.methodOn(AboutController.class)
-                        .getMethodName())
+                        .showAboutPage())
                 .withRel("about");
 
         WelcomeBean response = new WelcomeBean();
