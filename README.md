@@ -18,5 +18,5 @@ DB_PASSWORD=provide-db-password-here
 
 **Step 3:** Use the .env File When Running the Container. To run the container, use below command.
 
-docker run -p80:8080 -d --env-file .env --name devserver public.ecr.aws/j2p2l7e6/hello-aws:myrestapp
+docker run -p80:8080 -d --env-file .env --name devserver public.ecr.aws/j2p2l7e6/hello-aws:myrestapp-v1
 
