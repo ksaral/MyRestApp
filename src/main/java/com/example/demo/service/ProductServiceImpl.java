@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 
 import com.example.demo.datamodel.Product;
 import com.example.demo.entity.ProductEntity;
+import com.example.demo.exception.ProductAlreadyExistsException;
 import com.example.demo.exception.ProductNotFoundException;
 import com.example.demo.repository.ProductRepository;
 
@@ -56,19 +57,17 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void addProduct(Product product) {
-		//product.setProductId(productsRepo.size() + 1);
-		//productsRepo.put(product.getProductId(), product);
+		if(null != product.getProductId()){
+			Optional<ProductEntity> productFromDB = productRepository.findById(product.getProductId());
+			if (productFromDB.isPresent()){
+				throw new ProductAlreadyExistsException("id = " + product.getProductId());
+			}
+		}
 		productRepository.save(createEntityFromModel(product));
 	}
 
 	@Override
 	public void updateProduct(Integer productId, Product product) {
-		/*if (null == productsRepo.get(productId))
-			throw new ProductNotFoundException();
-		if (StringUtils.isEmpty(product.getProductId()))
-			product.setProductId(productId);
-		productsRepo.put(productId, product);*/
-
 		// Below is the method for version 2.X.X.
 		// com.example.demo.entity.Product productFromDb = productRepository.findById(productId).orElse(null);
 		// Below is the method for version 1.X.X.
@@ -83,10 +82,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void deleteProduct(Integer productId) {
-		/*if (null == productsRepo.get(productId))
-			throw new ProductNotFoundException();
-
-		productsRepo.remove(productId);*/
 		// Below is the method for version 2.X.X.
 		// com.example.demo.entity.Product productFromDb = productRepository.findById(productId).orElse(null);
 		// Below is the method for version 1.X.X.
@@ -105,7 +100,6 @@ public class ProductServiceImpl implements ProductService {
 
 	private ProductEntity createEntityFromModel(Product productModel) {
 		ProductEntity productEntity = new ProductEntity();
-		productEntity.setProductId(productRepository.findAll().size() + 1);
 		productEntity.setProductName(productModel.getProductName());
 		return productEntity;
 	}
