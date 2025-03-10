@@ -3,8 +3,6 @@ name: Build and Push to AWS ECR
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
 
 permissions:
   id-token: write  # Needed for OIDC authentication
