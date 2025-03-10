@@ -4,10 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.datamodel.Product;
+import com.example.demo.entity.ProductEntity;
 
 @Repository
 @EnableJpaRepositories
-public interface ProductRepository extends JpaRepository<Product, Integer> {
+public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
 
 }
