@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "master" ]
 
+permissions:
+  id-token: write  # Needed for OIDC authentication
+  contents: read   # Allows reading repository contents
+
 jobs:
 
   build:
