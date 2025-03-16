@@ -44,10 +44,7 @@ jobs:
 
       - name: Build Docker Image with Arguments
         run: |
-          docker build --build-arg DB_URL=${{ secrets.DB_URL }} \
-                       --build-arg DB_USERNAME=${{ secrets.DB_USERNAME }} \
-                       --build-arg DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-                       -t ${{ secrets.ECR_REPOSITORY }}:latest .
+          docker build -t ${{ secrets.ECR_REPOSITORY }}:latest .
 
       - name: Tag Docker Image
         run: |

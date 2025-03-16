@@ -1,0 +1,29 @@
+# Exclude build artifacts
+/bin
+#/target
+
+# Exclude source code (only needed if you are copying built artifacts)
+/src
+
+# Exclude version control and related files
+.git
+.github
+.gitignore
+
+# Exclude IDE and editor configurations
+.vscode
+
+# Exclude Maven-related files (if not required inside the image)
+.mvn
+mvnw
+mvnw.cmd
+
+# Exclude Docker-related temp files
+.docker-compose.yml.swp
+
+# Exclude secret files and configurations
+.secrets
+
+# Exclude unnecessary documentation (optional)
+README.md
+

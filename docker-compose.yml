@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  app:
+    image: tomcat:9.0-jdk17
+    container_name: my_rest_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    secrets:
+      - db_url
+      - db_username
+      - db_password
+    volumes:
+      - ./target/MyRestApp.war:/usr/local/tomcat/webapps/MyRestApp.war
+    ports:
+      - "80:8080"
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    container_name: my_mysql_db
+    environment:
+      MYSQL_DATABASE: dev
+      MYSQL_USER: myuser
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+      MYSQL_PASSWORD_FILE: /run/secrets/db_password
+    secrets:
+      - db_root_password
+      - db_username
+      - db_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+secrets:
+  db_root_password:
+    file: ./.secrets/db_root_password.txt
+  db_username:
+    file: ./.secrets/db_username.txt
+  db_password:
+    file: ./.secrets/db_password.txt
+  db_url:
+    file: ./.secrets/db_url.txt
+
+volumes:
+  mysql_data:
+
