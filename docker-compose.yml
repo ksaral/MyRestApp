@@ -7,6 +7,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - DB_URL_FILE=/run/secrets/db_url
+      - DB_USERNAME_FILE=/run/secrets/db_username
+      - DB_PASSWORD_FILE=/run/secrets/db_password
     secrets:
       - db_url
       - db_username
